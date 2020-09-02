@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
+    public int totalPickups = 8;
 
     private Rigidbody rb;
     private int count;
@@ -16,7 +17,12 @@ public class PlayerController : MonoBehaviour
     private float movementY;
 
 	// New comment
-	
+
+    public void testMethod()
+    {
+        Debug.Log("testMethod");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         countText.text = "Count: " + count;
 
-        if (count == 8)
+        if (count == totalPickups)
         {
             winTextObject.SetActive(true);
         }
