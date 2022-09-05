@@ -16,13 +16,6 @@ public class PlayerController : MonoBehaviour
     private float movementX;
     private float movementY;
 
-	// New comment
-
-    public void testMethod()
-    {
-        Debug.Log("testMethod");
-    }
-
     // Start is called before the first frame update
     void Start()
     {
