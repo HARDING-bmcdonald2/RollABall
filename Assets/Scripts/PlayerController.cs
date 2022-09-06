@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
         SetCountText();
 
         winTextObject.SetActive(false);
+        loseTextObject.SetActive(false);
         if (startTime <= 0)
         {
             startTime = 30;
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour
         if (startTime >= 60)
         {
             timerText.text = minutes + ":" + seconds;
-            if (string.Equals(seconds, "0:0.00"))
+            if (string.Equals(seconds, "0:0.00") && count != totalPickups)
             {
                 GameObject.Find("Player").SendMessage("Finish");
             }
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             timerText.text = seconds;
-            if (string.Equals(seconds, "0.00"))
+            if (string.Equals(seconds, "0.00") && count != totalPickups)
             {
                 GameObject.Find("Player").SendMessage("Finish");
             }
@@ -79,6 +80,8 @@ public class PlayerController : MonoBehaviour
         if (count == totalPickups)
         {
             winTextObject.SetActive(true);
+            finished = true;
+            timerText.color = Color.green;
         }
     }
 
@@ -107,6 +110,5 @@ public class PlayerController : MonoBehaviour
 
         loseTextObject.SetActive(true);
         pickUps.SetActive(false);
-
     }
 }
