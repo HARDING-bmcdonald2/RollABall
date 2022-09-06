@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
+    public GameObject loseTextObject;
+    public GameObject pickUps;
     public int totalPickups = 8;
     public TextMeshProUGUI timerText;
 
@@ -36,6 +38,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (finished)
+        {
+            return;
+        }
         float t = startTime - Time.time;
 
         string minutes = ((int)t / 60).ToString();
@@ -44,10 +50,18 @@ public class PlayerController : MonoBehaviour
         if (startTime >= 60)
         {
             timerText.text = minutes + ":" + seconds;
+            if (string.Equals(seconds, "0:0.00"))
+            {
+                GameObject.Find("Player").SendMessage("Finish");
+            }
         }
         else
         {
             timerText.text = seconds;
+            if (string.Equals(seconds, "0.00"))
+            {
+                GameObject.Find("Player").SendMessage("Finish");
+            }
         }
     }
 
@@ -84,5 +98,15 @@ public class PlayerController : MonoBehaviour
             count++;
             SetCountText();
         }
+    }
+
+    public void Finish()
+    {
+        finished = true;
+        timerText.color = Color.yellow;
+
+        loseTextObject.SetActive(true);
+        pickUps.SetActive(false);
+
     }
 }
