@@ -10,7 +10,10 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     public int totalPickups = 8;
+    public TextMeshProUGUI timerText;
 
+    private float startTime;
+    private bool finished = false;
     private Rigidbody rb;
     private int count;
     private float movementX;
@@ -25,6 +28,27 @@ public class PlayerController : MonoBehaviour
         SetCountText();
 
         winTextObject.SetActive(false);
+        if (startTime <= 0)
+        {
+            startTime = 30;
+        }
+    }
+
+    private void Update()
+    {
+        float t = startTime - Time.time;
+
+        string minutes = ((int)t / 60).ToString();
+        string seconds = (t % 60).ToString("f2");
+
+        if (startTime >= 60)
+        {
+            timerText.text = minutes + ":" + seconds;
+        }
+        else
+        {
+            timerText.text = seconds;
+        }
     }
 
     void OnMove(InputValue movementValue)
@@ -60,11 +84,5 @@ public class PlayerController : MonoBehaviour
             count++;
             SetCountText();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
